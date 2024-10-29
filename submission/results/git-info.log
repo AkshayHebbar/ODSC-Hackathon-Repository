@@ -1,0 +1,1024 @@
+commit hash: d1bbe66cc1133a4f5c90f959e58a0ef9a861d286
+diff --git a/step-1-data-curation.ipynb b/step-1-data-curation.ipynb
+index 19b912d..08d12d1 100644
+--- a/step-1-data-curation.ipynb
++++ b/step-1-data-curation.ipynb
+@@ -22,9 +22,55 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 2,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
++      "Collecting ipywidgets\n",
++      "  Downloading ipywidgets-8.1.5-py3-none-any.whl.metadata (2.3 kB)\n",
++      "Requirement already satisfied: comm>=0.1.3 in /usr/local/lib/python3.10/dist-packages (from ipywidgets) (0.2.2)\n",
++      "Requirement already satisfied: ipython>=6.1.0 in /usr/local/lib/python3.10/dist-packages (from ipywidgets) (8.21.0)\n",
++      "Requirement already satisfied: traitlets>=4.3.1 in /usr/local/lib/python3.10/dist-packages (from ipywidgets) (5.9.0)\n",
++      "Collecting widgetsnbextension~=4.0.12 (from ipywidgets)\n",
++      "  Downloading widgetsnbextension-4.0.13-py3-none-any.whl.metadata (1.6 kB)\n",
++      "Collecting jupyterlab-widgets~=3.0.12 (from ipywidgets)\n",
++      "  Downloading jupyterlab_widgets-3.0.13-py3-none-any.whl.metadata (4.1 kB)\n",
++      "Requirement already satisfied: decorator in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (5.1.1)\n",
++      "Requirement already satisfied: jedi>=0.16 in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (0.19.1)\n",
++      "Requirement already satisfied: matplotlib-inline in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (0.1.7)\n",
++      "Requirement already satisfied: prompt-toolkit<3.1.0,>=3.0.41 in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (3.0.47)\n",
++      "Requirement already satisfied: pygments>=2.4.0 in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (2.18.0)\n",
++      "Requirement already satisfied: stack-data in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (0.6.3)\n",
++      "Requirement already satisfied: exceptiongroup in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (1.2.1)\n",
++      "Requirement already satisfied: pexpect>4.3 in /usr/local/lib/python3.10/dist-packages (from ipython>=6.1.0->ipywidgets) (4.9.0)\n",
++      "Requirement already satisfied: parso<0.9.0,>=0.8.3 in /usr/local/lib/python3.10/dist-packages (from jedi>=0.16->ipython>=6.1.0->ipywidgets) (0.8.4)\n",
++      "Requirement already satisfied: ptyprocess>=0.5 in /usr/local/lib/python3.10/dist-packages (from pexpect>4.3->ipython>=6.1.0->ipywidgets) (0.7.0)\n",
++      "Requirement already satisfied: wcwidth in /usr/local/lib/python3.10/dist-packages (from prompt-toolkit<3.1.0,>=3.0.41->ipython>=6.1.0->ipywidgets) (0.2.13)\n",
++      "Requirement already satisfied: executing>=1.2.0 in /usr/local/lib/python3.10/dist-packages (from stack-data->ipython>=6.1.0->ipywidgets) (2.0.1)\n",
++      "Requirement already satisfied: asttokens>=2.1.0 in /usr/local/lib/python3.10/dist-packages (from stack-data->ipython>=6.1.0->ipywidgets) (2.4.1)\n",
++      "Requirement already satisfied: pure-eval in /usr/local/lib/python3.10/dist-packages (from stack-data->ipython>=6.1.0->ipywidgets) (0.2.2)\n",
++      "Requirement already satisfied: six>=1.12.0 in /usr/local/lib/python3.10/dist-packages (from asttokens>=2.1.0->stack-data->ipython>=6.1.0->ipywidgets) (1.16.0)\n",
++      "Downloading ipywidgets-8.1.5-py3-none-any.whl (139 kB)\n",
++      "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m139.8/139.8 kB\u001b[0m \u001b[31m5.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
++      "\u001b[?25hDownloading jupyterlab_widgets-3.0.13-py3-none-any.whl (214 kB)\n",
++      "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m214.4/214.4 kB\u001b[0m \u001b[31m17.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
++      "\u001b[?25hDownloading widgetsnbextension-4.0.13-py3-none-any.whl (2.3 MB)\n",
++      "\u001b[2K   \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m2.3/2.3 MB\u001b[0m \u001b[31m79.5 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
++      "\u001b[?25hInstalling collected packages: widgetsnbextension, jupyterlab-widgets, ipywidgets\n",
++      "Successfully installed ipywidgets-8.1.5 jupyterlab-widgets-3.0.13 widgetsnbextension-4.0.13\n",
++      "\u001b[33mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\u001b[0m\u001b[33m\n",
++      "\u001b[0m\n",
++      "\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m A new release of pip is available: \u001b[0m\u001b[31;49m24.1.2\u001b[0m\u001b[39;49m -> \u001b[0m\u001b[32;49m24.3.1\u001b[0m\n",
++      "\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m To update, run: \u001b[0m\u001b[32;49mpython -m pip install --upgrade pip\u001b[0m\n"
++     ]
++    }
++   ],
+    "source": [
+     "! pip install ipywidgets"
+    ]
+@@ -46,8 +92,10 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 3,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "import os\n",
+@@ -70,14 +118,18 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 23,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "from nemo_curator.utils.distributed_utils import get_client\n",
+     "from nemo_curator.datasets import DocumentDataset\n",
+-    "from nemo_curator.filters import WordCountFilter\n",
++    "from nemo_curator.filters import WordCountFilter, SymbolsToWordsFilter, RepeatingTopNGramsFilter\n",
+     "from nemo_curator.modifiers import UnicodeReformatter\n",
++    "from nemo_curator.modifiers import DocumentModifier\n",
++    "from nemo_curator.modifiers.pii_modifier import PiiModifier\n",
+     "from nemo_curator.utils.file_utils import expand_outdir_and_mkdir\n",
+     "from nemo_curator import ScoreFilter, Sequential\n",
+     "from nemo_curator.modules.modify import Modify\n",
+@@ -102,11 +154,43 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 16,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/usr/local/lib/python3.10/dist-packages/distributed/node.py:187: UserWarning: Port 8787 is already in use.\n",
++      "Perhaps you already have a cluster running?\n",
++      "Hosting the HTTP server on port 33477 instead\n",
++      "  warnings.warn(\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "cuDF Spilling is enabled\n"
++     ]
++    },
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "2024-10-28 06:57:43,667 - distributed.scheduler - INFO - Retire worker addresses (0,)\n",
++      "2024-10-28 06:57:43,673 - distributed.core - INFO - Received 'close-stream' from tcp://127.0.0.1:42632; closing.\n",
++      "2024-10-28 06:57:43,674 - distributed.scheduler - INFO - Remove worker <WorkerState 'tcp://127.0.0.1:38093', name: 0, status: closing, memory: 0, processing: 0> (stimulus_id='handle-worker-cleanup-1730098663.6747935')\n",
++      "2024-10-28 06:57:43,675 - distributed.scheduler - INFO - Lost all workers\n",
++      "2024-10-28 06:57:45,112 - distributed.scheduler - INFO - Closing scheduler. Reason: unknown\n",
++      "2024-10-28 06:57:45,113 - distributed.scheduler - INFO - Scheduler closing all comms\n"
++     ]
++    }
++   ],
+    "source": [
+-    "device = \"cpu\"  # It can be either \"cpu\" or \"gpu\"\n",
++    "device = \"gpu\"  # It can be either \"cpu\" or \"gpu\"\n",
+     "n_workers = 4  # Number of workers to use for Dask. If running out of memory, try reducing this.\n",
+     "client = get_client(device, n_workers=n_workers, set_torch_to_use_rmm=False)"
+    ]
+@@ -123,11 +207,188 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 18,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Download directory:  /root/ODSC-Hackathon-Repository/data/raw\n",
++      "File '/root/ODSC-Hackathon-Repository/data/raw/law-stackexchange-questions-answers.json' already exists, skipping download.\n"
++     ]
++    }
++   ],
++   "source": [
++    "dataset_df = download_and_convert_dataset(DATA_DIR)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 19,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [],
++   "source": [
++    "dataset_df['id'] = dataset_df['id'].apply(lambda x: x.split('-')[-1])\n",
++    "dataset_df['id'] = dataset_df['id'].apply(lambda x: int(x))"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 20,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "data": {
++      "text/html": [
++       "<div>\n",
++       "<style scoped>\n",
++       "    .dataframe tbody tr th:only-of-type {\n",
++       "        vertical-align: middle;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe tbody tr th {\n",
++       "        vertical-align: top;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe thead th {\n",
++       "        text-align: right;\n",
++       "    }\n",
++       "</style>\n",
++       "<table border=\"1\" class=\"dataframe\">\n",
++       "  <thead>\n",
++       "    <tr style=\"text-align: right;\">\n",
++       "      <th></th>\n",
++       "      <th>filename</th>\n",
++       "      <th>id</th>\n",
++       "      <th>title</th>\n",
++       "      <th>question</th>\n",
++       "      <th>question_score</th>\n",
++       "      <th>answer</th>\n",
++       "      <th>answer_score</th>\n",
++       "      <th>tags</th>\n",
++       "    </tr>\n",
++       "  </thead>\n",
++       "  <tbody>\n",
++       "    <tr>\n",
++       "      <th>0</th>\n",
++       "      <td>law-stackexchange-questions-answers.json</td>\n",
++       "      <td>94665</td>\n",
++       "      <td>Why is drunk driving causing accident punished...</td>\n",
++       "      <td>When people drink and drive and then cause an ...</td>\n",
++       "      <td>23</td>\n",
++       "      <td>Moral luck You have raised the issue of moral ...</td>\n",
++       "      <td>72</td>\n",
++       "      <td>criminal-law,driving,sentencing</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>1</th>\n",
++       "      <td>law-stackexchange-questions-answers.json</td>\n",
++       "      <td>94671</td>\n",
++       "      <td>What counts as consideration in contract law?</td>\n",
++       "      <td>What counts as consideration in contract law? ...</td>\n",
++       "      <td>0</td>\n",
++       "      <td>See generally Hamer v. Sidway (1891), 124 NY 5...</td>\n",
++       "      <td>1</td>\n",
++       "      <td>consideration,contract-law,legal-terms</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>2</th>\n",
++       "      <td>law-stackexchange-questions-answers.json</td>\n",
++       "      <td>94683</td>\n",
++       "      <td>Question Concerning Responding to Employer of ...</td>\n",
++       "      <td>My high school daughter worked for about a yea...</td>\n",
++       "      <td>1</td>\n",
++       "      <td>Read the terms It’s quite likely that, if you ...</td>\n",
++       "      <td>3</td>\n",
++       "      <td>california,employment,teenager</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3</th>\n",
++       "      <td>law-stackexchange-questions-answers.json</td>\n",
++       "      <td>67110</td>\n",
++       "      <td>Can Hawaii secede from the U.S. through legal ...</td>\n",
++       "      <td>Can Hawaii secede from the U.S. through legal ...</td>\n",
++       "      <td>2</td>\n",
++       "      <td>Currently, there is no legal means for a state...</td>\n",
++       "      <td>9</td>\n",
++       "      <td>constitutional-law,federalism,united-states</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>4</th>\n",
++       "      <td>law-stackexchange-questions-answers.json</td>\n",
++       "      <td>94678</td>\n",
++       "      <td>Legality of privately bibby Stockholming to sa...</td>\n",
++       "      <td>It seems that the principal impetus of moving ...</td>\n",
++       "      <td>1</td>\n",
++       "      <td>england-and-wales then what stops private citi...</td>\n",
++       "      <td>1</td>\n",
++       "      <td>any-jurisdiction,coast,law-of-the-sea,property...</td>\n",
++       "    </tr>\n",
++       "  </tbody>\n",
++       "</table>\n",
++       "</div>"
++      ],
++      "text/plain": [
++       "                                   filename     id  \\\n",
++       "0  law-stackexchange-questions-answers.json  94665   \n",
++       "1  law-stackexchange-questions-answers.json  94671   \n",
++       "2  law-stackexchange-questions-answers.json  94683   \n",
++       "3  law-stackexchange-questions-answers.json  67110   \n",
++       "4  law-stackexchange-questions-answers.json  94678   \n",
++       "\n",
++       "                                               title  \\\n",
++       "0  Why is drunk driving causing accident punished...   \n",
++       "1      What counts as consideration in contract law?   \n",
++       "2  Question Concerning Responding to Employer of ...   \n",
++       "3  Can Hawaii secede from the U.S. through legal ...   \n",
++       "4  Legality of privately bibby Stockholming to sa...   \n",
++       "\n",
++       "                                            question  question_score  \\\n",
++       "0  When people drink and drive and then cause an ...              23   \n",
++       "1  What counts as consideration in contract law? ...               0   \n",
++       "2  My high school daughter worked for about a yea...               1   \n",
++       "3  Can Hawaii secede from the U.S. through legal ...               2   \n",
++       "4  It seems that the principal impetus of moving ...               1   \n",
++       "\n",
++       "                                              answer  answer_score  \\\n",
++       "0  Moral luck You have raised the issue of moral ...            72   \n",
++       "1  See generally Hamer v. Sidway (1891), 124 NY 5...             1   \n",
++       "2  Read the terms It’s quite likely that, if you ...             3   \n",
++       "3  Currently, there is no legal means for a state...             9   \n",
++       "4  england-and-wales then what stops private citi...             1   \n",
++       "\n",
++       "                                                tags  \n",
++       "0                    criminal-law,driving,sentencing  \n",
++       "1             consideration,contract-law,legal-terms  \n",
++       "2                     california,employment,teenager  \n",
++       "3        constitutional-law,federalism,united-states  \n",
++       "4  any-jurisdiction,coast,law-of-the-sea,property...  "
++      ]
++     },
++     "execution_count": 20,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "dataset_df.head()"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 21,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+-    "dataset_df = download_and_convert_dataset(DATA_DIR)\n",
+     "raw_dataset = DocumentDataset.from_pandas(dataset_df)"
+    ]
+   },
+@@ -142,37 +403,68 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 24,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [],
++   "source": [
++    "class QuotationUnifier(DocumentModifier):\n",
++    "    def modify_document(self, text: str) -> str:\n",
++    "        text = text.replace(\"‘\", \"'\").replace(\"’\", \"'\")\n",
++    "        text = text.replace(\"“\", '\"').replace(\"”\", '\"')\n",
++    "        text = text.replace(\"...\", '').replace(\"..\", '')\n",
++    "        return text"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 25,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "def run_curation_pipeline(dataset: DocumentDataset, device: str) -> DocumentDataset:\n",
+     "    print(f\"Running curation pipeline on '{device}'...\")\n",
+     "    orig_dataset = dataset\n",
+-    "\n",
+-    "    cpu_curation_steps = Sequential(\n",
+-    "        [\n",
+-    "            #\n",
+-    "            # Modifications\n",
+-    "            #\n",
+-    "            # Unify the text encoding to Unicode.\n",
++    "    \n",
++    "    def datacleaners(DocumentDataset) -> DocumentDataset:\n",
++    "        cleaners = Sequential([\n",
++    "            Modify(QuotationUnifier(), text_field=\"title\"),\n",
++    "            Modify(QuotationUnifier(), text_field=\"question\"),\n",
++    "            Modify(QuotationUnifier(), text_field=\"answer\"),\n",
+     "            Modify(UnicodeReformatter(), text_field=\"title\"),\n",
+     "            Modify(UnicodeReformatter(), text_field=\"question\"),\n",
+-    "            #\n",
+-    "            # Filtering\n",
+-    "            #\n",
+-    "            # Filter out records based on the question word counts.\n",
++    "            Modify(UnicodeReformatter(), text_field=\"answer\"),\n",
++    "        ])\n",
++    "        return cleaners(dataset)\n",
++    "    \n",
++    "    def datafilter(DocumentDataset) -> DocumentDataset:\n",
++    "        filters = Sequential([\n",
+     "            ScoreFilter(\n",
+-    "                WordCountFilter(min_words=50, max_words=500),\n",
++    "                WordCountFilter(min_words=50, max_words=1000, lang='en'),\n",
+     "                text_field=\"question\",\n",
+     "                score_type=int,\n",
+     "            ),\n",
+-    "            # Filter out records where the question has a negative score.\n",
+     "            ScoreFilter(\n",
+     "                FilterLowScores(score_threshold=0),\n",
+     "                text_field=\"question_score\",\n",
+     "                score_type=bool,\n",
+     "            ),\n",
++    "            ScoreFilter(\n",
++    "                FilterLowScores(score_threshold=0),\n",
++    "                text_field=\"answer_score\",\n",
++    "                score_type=bool,\n",
++    "            ),\n",
++    "\n",
++    "        ])\n",
++    "        return filters(dataset)\n",
++    "\n",
++    "    cpu_curation_steps = Sequential(\n",
++    "        [\n",
++    "            datacleaners,\n",
++    "            datafilter\n",
+     "        ]\n",
+     "    )\n",
+     "\n",
+@@ -199,9 +491,45 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 26,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Running curation pipeline on 'gpu'...\n"
++     ]
++    },
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/usr/local/lib/python3.10/dist-packages/distributed/client.py:3361: UserWarning: Sending large graph of size 58.69 MiB.\n",
++      "This may cause some slowdown.\n",
++      "Consider loading the data with Dask directly\n",
++      " or using futures or delayed objects to embed the data into the graph without repetition.\n",
++      "See also https://docs.dask.org/en/stable/best-practices.html#load-data-with-dask for more information.\n",
++      "  warnings.warn(\n",
++      "/usr/local/lib/python3.10/dist-packages/distributed/client.py:3361: UserWarning: Sending large graph of size 58.69 MiB.\n",
++      "This may cause some slowdown.\n",
++      "Consider loading the data with Dask directly\n",
++      " or using futures or delayed objects to embed the data into the graph without repetition.\n",
++      "See also https://docs.dask.org/en/stable/best-practices.html#load-data-with-dask for more information.\n",
++      "  warnings.warn(\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Original dataset length: 24343\n",
++      "New dataset length: 19164\n"
++     ]
++    }
++   ],
+    "source": [
+     "curated_dataset = run_curation_pipeline(raw_dataset, device)"
+    ]
+@@ -219,8 +547,10 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 29,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "def format_dataset(dataset: DocumentDataset, filename: str) -> DocumentDataset:\n",
+@@ -247,9 +577,20 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 30,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Original dataset columns: Index(['filename', 'id', 'title', 'question', 'tags'], dtype='object')\n",
++      "Formatted dataset columns: Index(['filename', 'id', 'input', 'output'], dtype='object')\n"
++     ]
++    }
++   ],
+    "source": [
+     "formatted_dataset = format_dataset(curated_dataset, \"law-stackexchange-curated.jsonl\")\n",
+     "print(f\"Original dataset columns: {curated_dataset.df.columns}\")\n",
+@@ -267,9 +608,40 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 31,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Curated dataset columns: Index(['filename', 'id', 'input', 'output'], dtype='object')\n",
++      "\n",
++      "Saving curated dataset to '/root/ODSC-Hackathon-Repository/data/curated_dataset'...\n"
++     ]
++    },
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/usr/local/lib/python3.10/dist-packages/distributed/client.py:3361: UserWarning: Sending large graph of size 22.90 MiB.\n",
++      "This may cause some slowdown.\n",
++      "Consider loading the data with Dask directly\n",
++      " or using futures or delayed objects to embed the data into the graph without repetition.\n",
++      "See also https://docs.dask.org/en/stable/best-practices.html#load-data-with-dask for more information.\n",
++      "  warnings.warn(\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Writing to disk complete for 1 partitions\n"
++     ]
++    }
++   ],
+    "source": [
+     "print(f\"Curated dataset columns: {formatted_dataset.df.columns}\")\n",
+     "result_fp = os.path.join(DATA_DIR, \"curated_dataset\")\n",
+@@ -290,9 +662,54 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 32,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/usr/local/lib/python3.10/dist-packages/distributed/client.py:3361: UserWarning: Sending large graph of size 22.90 MiB.\n",
++      "This may cause some slowdown.\n",
++      "Consider loading the data with Dask directly\n",
++      " or using futures or delayed objects to embed the data into the graph without repetition.\n",
++      "See also https://docs.dask.org/en/stable/best-practices.html#load-data-with-dask for more information.\n",
++      "  warnings.warn(\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Original size: 19164\n",
++      "After splitting:\n",
++      "    Train size: 18206\n",
++      "    Validation size: 958\n"
++     ]
++    },
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/usr/local/lib/python3.10/dist-packages/distributed/client.py:3361: UserWarning: Sending large graph of size 21.78 MiB.\n",
++      "This may cause some slowdown.\n",
++      "Consider loading the data with Dask directly\n",
++      " or using futures or delayed objects to embed the data into the graph without repetition.\n",
++      "See also https://docs.dask.org/en/stable/best-practices.html#load-data-with-dask for more information.\n",
++      "  warnings.warn(\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Writing to disk complete for 1 partitions\n",
++      "Writing to disk complete for 1 partitions\n"
++     ]
++    }
++   ],
+    "source": [
+     "from sklearn.model_selection import train_test_split\n",
+     "\n",
+@@ -335,9 +752,21 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
++   "execution_count": 33,
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Reading 1 files\n",
++      "Writing the formatted submission dataset to disk...\n",
++      "Writing to disk complete for 1 partitions\n"
++     ]
++    }
++   ],
+    "source": [
+     "submission_ds = \"data/submission/evaluation-dataset-verified-for-participants.jsonl\"\n",
+     "assert os.path.exists(submission_ds), f\"The submission dataset does not exist at '{submission_ds}'\"\n",
+@@ -368,18 +797,27 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
++   "execution_count": 34,
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "client.close()\n",
+     "exit(0)"
+    ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [],
++   "source": []
+   }
+  ],
+  "metadata": {
+   "kernelspec": {
+-   "display_name": ".venv",
++   "display_name": "Python 3 (ipykernel)",
+    "language": "python",
+    "name": "python3"
+   },
+@@ -397,5 +835,5 @@
+   }
+  },
+  "nbformat": 4,
+- "nbformat_minor": 2
++ "nbformat_minor": 4
+ }
+diff --git a/step-2-download-model.ipynb b/step-2-download-model.ipynb
+index ac657e3..6de1768 100644
+--- a/step-2-download-model.ipynb
++++ b/step-2-download-model.ipynb
+@@ -15,12 +15,36 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
++   "execution_count": 1,
+    "id": "3db9f6f9-b0c3-4c15-92d4-5c7ff0e5a286",
+    "metadata": {
+     "tags": []
+    },
+-   "outputs": [],
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Looking in indexes: https://pypi.org/simple, https://pypi.ngc.nvidia.com\n",
++      "Requirement already satisfied: huggingface-hub in /usr/local/lib/python3.10/dist-packages (0.26.1)\n",
++      "Requirement already satisfied: filelock in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (3.15.4)\n",
++      "Requirement already satisfied: fsspec>=2023.5.0 in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (2024.5.0)\n",
++      "Requirement already satisfied: packaging>=20.9 in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (24.0)\n",
++      "Requirement already satisfied: pyyaml>=5.1 in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (6.0.1)\n",
++      "Requirement already satisfied: requests in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (2.32.3)\n",
++      "Requirement already satisfied: tqdm>=4.42.1 in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (4.66.5)\n",
++      "Requirement already satisfied: typing-extensions>=3.7.4.3 in /usr/local/lib/python3.10/dist-packages (from huggingface-hub) (4.12.0)\n",
++      "Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.10/dist-packages (from requests->huggingface-hub) (3.4.0)\n",
++      "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.10/dist-packages (from requests->huggingface-hub) (3.7)\n",
++      "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.10/dist-packages (from requests->huggingface-hub) (1.26.20)\n",
++      "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.10/dist-packages (from requests->huggingface-hub) (2024.7.4)\n",
++      "\u001b[33mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable.It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.\u001b[0m\u001b[33m\n",
++      "\u001b[0m\n",
++      "\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m A new release of pip is available: \u001b[0m\u001b[31;49m24.1.2\u001b[0m\u001b[39;49m -> \u001b[0m\u001b[32;49m24.3.1\u001b[0m\n",
++      "\u001b[1m[\u001b[0m\u001b[34;49mnotice\u001b[0m\u001b[1;39;49m]\u001b[0m\u001b[39;49m To update, run: \u001b[0m\u001b[32;49mpython -m pip install --upgrade pip\u001b[0m\n"
++     ]
++    }
++   ],
+    "source": [
+     "! pip install huggingface-hub"
+    ]
+@@ -35,10 +59,41 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
++   "execution_count": 2,
+    "id": "11920d0b",
+-   "metadata": {},
+-   "outputs": [],
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "--2024-10-28 06:58:07--  https://raw.githubusercontent.com/NVIDIA/NeMo/721f9101f92c9dc3976689b2bf45bad1d5075d07/nemo/collections/nlp/models/language_modeling/megatron/gemma2/gemma2_modules.py\n",
++      "Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.111.133, 185.199.108.133, ...\n",
++      "Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.\n",
++      "HTTP request sent, awaiting response... 200 OK\n",
++      "Length: 10842 (11K) [text/plain]\n",
++      "Saving to: ‘/opt/NeMo/nemo/collections/nlp/models/language_modeling/megatron/gemma2/gemma2_modules.py’\n",
++      "\n",
++      "     0K ..........                                            100% 75.5M=0s\n",
++      "\n",
++      "2024-10-28 06:58:07 (75.5 MB/s) - ‘/opt/NeMo/nemo/collections/nlp/models/language_modeling/megatron/gemma2/gemma2_modules.py’ saved [10842/10842]\n",
++      "\n",
++      "--2024-10-28 06:58:07--  https://raw.githubusercontent.com/NVIDIA/NeMo/721f9101f92c9dc3976689b2bf45bad1d5075d07/scripts/checkpoint_converters/convert_gemma2_hf_to_nemo.py\n",
++      "Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.110.133, 185.199.109.133, 185.199.111.133, ...\n",
++      "Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.110.133|:443... connected.\n",
++      "HTTP request sent, awaiting response... 200 OK\n",
++      "Length: 13502 (13K) [text/plain]\n",
++      "Saving to: ‘/opt/NeMo/scripts/checkpoint_converters/convert_gemma2_hf_to_nemo.py’\n",
++      "\n",
++      "     0K .......... ...                                        100% 18.9M=0.001s\n",
++      "\n",
++      "2024-10-28 06:58:07 (18.9 MB/s) - ‘/opt/NeMo/scripts/checkpoint_converters/convert_gemma2_hf_to_nemo.py’ saved [13502/13502]\n",
++      "\n"
++     ]
++    }
++   ],
+    "source": [
+     "%%bash\n",
+     "\n",
+@@ -64,13 +119,15 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
++   "execution_count": 3,
+    "id": "68abb5ee",
+-   "metadata": {},
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "# Configure your HuggingFace token here.\n",
+-    "HF_TOKEN=\"<YOUR_HF_TOKEN>\""
++    "HF_TOKEN=\"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\""
+    ]
+   },
+   {
+@@ -85,9 +142,11 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
++   "execution_count": 4,
+    "id": "b93dc17a",
+-   "metadata": {},
++   "metadata": {
++    "tags": []
++   },
+    "outputs": [],
+    "source": [
+     "model_to_use = \"google/gemma-2-2b\"\n",
+@@ -115,12 +174,205 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": null,
++   "execution_count": 5,
+    "id": "d9e353d3-9232-4538-968d-882ea44ccd15",
+    "metadata": {
+     "tags": []
+    },
+-   "outputs": [],
++   "outputs": [
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "7dcdf81eab1f456c88f3bab18c546916",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "1453b09cb90c4f139f5eb2a6c35fb434",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       ".gitattributes:   0%|          | 0.00/1.57k [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "30e58dbd346a464e83bf3338e00002c5",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "model.safetensors.index.json:   0%|          | 0.00/24.2k [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "ef0c128756d14b2eb30e1a6c4963ae05",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "generation_config.json:   0%|          | 0.00/168 [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "516ca051f7174c83b371371ceea43c63",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "config.json:   0%|          | 0.00/818 [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "976052f37e074eafa7a7c3daa29606a4",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "model-00003-of-00003.safetensors:   0%|          | 0.00/481M [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "9a76cf90ad7b4fc0a14e2c2625e5a995",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "README.md:   0%|          | 0.00/25.8k [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "d4b24a3e450342f4a07f0222e353edfe",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "model-00001-of-00003.safetensors:   0%|          | 0.00/4.99G [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "4ff06ce69f0141bc9ddaf810ee3242ef",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "model-00002-of-00003.safetensors:   0%|          | 0.00/4.98G [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "33830134a8794cf28c4b360a0fd81aab",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "tokenizer.json:   0%|          | 0.00/17.5M [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "d800091102c1468e8761ede155c3f5d3",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "tokenizer.model:   0%|          | 0.00/4.24M [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "e949e868446f48f49e36b21294a20510",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "special_tokens_map.json:   0%|          | 0.00/636 [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "application/vnd.jupyter.widget-view+json": {
++       "model_id": "50f0e591d17f4c89b1c55f396f9e9f60",
++       "version_major": 2,
++       "version_minor": 0
++      },
++      "text/plain": [
++       "tokenizer_config.json:   0%|          | 0.00/46.4k [00:00<?, ?B/s]"
++      ]
++     },
++     "metadata": {},
++     "output_type": "display_data"
++    },
++    {
++     "data": {
++      "text/plain": [
++       "'/root/ODSC-Hackathon-Repository/models/gemma-2-2b'"
++      ]
++     },
++     "execution_count": 5,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
+    "source": [
+     "from huggingface_hub import login, snapshot_download\n",
+     "\n",
+@@ -150,8 +402,18 @@
+    "cell_type": "code",
+    "execution_count": null,
+    "id": "3bd666e8",
+-   "metadata": {},
+-   "outputs": [],
++   "metadata": {
++    "tags": []
++   },
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Model conversion started. This will take some time...\n"
++     ]
++    }
++   ],
+    "source": [
+     "import os\n",
+     "import subprocess\n",
